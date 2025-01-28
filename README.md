@@ -13,7 +13,7 @@ This repository provides an easy-to-use HTML-based tool to generate a fully cust
 ## How to Use
 1. Open the `index.html` file in your browser.
 2. Fill in the configuration fields:
-   - **Input Currency**: Enter the symbol or address of the token to swap from (e.g., `PLS`).
+   - **Input Currency**: Enter the symbol or address of the token to swap from (e.g., `PLS` - PLS is default).
    - **Output Currency**: Enter the symbol or address of the token to swap to (e.g., `0x...`).
    - **Exact Amount**: Optionally specify the amount of the input token to swap.
    - **Theme**: Choose between `light` and `dark` themes.
