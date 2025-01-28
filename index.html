@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piteas Widget Generator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <script defer>
+        function updateWidget() {
+            const inputCurrency = document.getElementById("input-currency").value;
+            const outputCurrency = document.getElementById("output-currency").value;
+            const exactAmount = document.getElementById("exact-amount").value;
+            const theme = document.getElementById("theme").value;
+            const height = document.getElementById("widget-height").value;
+            const width = document.getElementById("widget-width").value;
+            const iframe = document.getElementById("widget-preview");
+
+            let src = `https://widget.piteas.io/#/swap?inputCurrency=${inputCurrency}&outputCurrency=${outputCurrency}&theme=${theme}`;
+
+            if (exactAmount) {
+                src += `&exactField=input&exactAmount=${exactAmount}`;
+            }
+
+            iframe.src = src;
+            iframe.style.height = height + "px";
+            iframe.style.width = width + "px";
+
+            document.getElementById("widget-code").value = `<iframe src="${src}" height="${height}px" width="${width}" style="border: 0; margin: 0 auto; display: block; max-width: 960px; min-width: 300px;"></iframe>`;
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("input-currency").value = "PLS"; // Default inputCurrency value
+            updateWidget(); // Initial widget update
+        });
+    </script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4">Piteas Widget Generator</h1>
+        <div class="grid grid-cols-2 gap-4">
+            <!-- Configurator Section -->
+            <div class="bg-white p-4 shadow rounded-lg">
+                <h2 class="text-xl font-semibold mb-4">Configure Your Widget</h2>
+
+                <label class="block mb-2">Input Currency (address or symbol):
+                    <input id="input-currency" type="text" value="PLS" placeholder="PLS" class="w-full border p-2 rounded" onchange="updateWidget()">
+                </label>
+
+                <label class="block mb-2">Output Currency (address or symbol):
+                    <input id="output-currency" type="text" placeholder="0x..." class="w-full border p-2 rounded" onchange="updateWidget()">
+                </label>
+
+                <label class="block mb-2">Exact Amount (optional):
+                    <input id="exact-amount" type="number" placeholder="1000" class="w-full border p-2 rounded" onchange="updateWidget()">
+                </label>
+
+                <label class="block mb-2">Theme:
+                    <select id="theme" class="w-full border p-2 rounded" onchange="updateWidget()">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                    </select>
+                </label>
+
+                <label class="block mb-2">Height (px):
+                    <input id="widget-height" type="number" value="720" class="w-full border p-2 rounded" onchange="updateWidget()">
+                </label>
+
+                <label class="block mb-2">Width (% or px):
+                    <input id="widget-width" type="text" value="100%" class="w-full border p-2 rounded" onchange="updateWidget()">
+                </label>
+
+                <p class="text-sm text-gray-500 mt-4">Copy the following HTML snippet for your website:</p>
+                <textarea id="widget-code" readonly class="w-full border p-2 rounded text-sm text-gray-700"></textarea>
+            </div>
+
+            <!-- Preview Section -->
+            <div class="bg-white p-4 shadow rounded-lg">
+                <h2 class="text-xl font-semibold mb-4 flex items-center">Widget Preview <button class="ml-2 rounded" onclick="document.getElementById('widget-preview').src = document.getElementById('widget-preview').src">🔄</button></h2>
+                <iframe id="widget-preview" class="w-full border rounded" src="https://widget.piteas.io/#/swap?inputCurrency=PLS&outputCurrency=&theme=light" style="height: 720px; width: 100%; border: 0; margin: 0 auto; display: block; max-width: 960px; min-width: 300px;"></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
